@@ -1,0 +1,39 @@
+$ hdfs namenode -format
+
+$ start-all.sh
+
+$ jps
+
+$ hdfs dfs -mkdir /testing
+
+$ hdfs dfs -ls -R /
+
+$ hdfs dfs -mkdir /testing2
+
+$ hdfs dfs -mv  /testing2 /testing
+
+$ gedit sample.txt
+
+$ hdfs dfs -put  ~/sample.txt /testing
+
+$ hdfs dfs -ls -R /
+
+$ hdfs dfs -mv /testing/sample.txt /testing/testing2
+
+$ hdfs dfs -cat /testing/testing2/sample.txt
+
+$ ls
+
+$ rm sample.txt
+
+$ hdfs dfs -get /testing/testing2/sample.txt
+
+$ hdfs dfs -rm /testing/testing2/sample.txt
+
+$ hdfs dfs -rmdir /testing/testing2
+
+$ hdfs dfs -touchz /testing/about.txt
+
+$ hdfs dfs -rm /testing/about.txt
+
+$ hdfs dfs -rmdir /testing
