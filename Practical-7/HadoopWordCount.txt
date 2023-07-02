@@ -1,0 +1,9 @@
+$ hdfs namenode -format
+$ start-all.sh
+$ hdfs dfs -mkdir /testing
+$ hdfs dfs -ls -R /
+$ gedit sample.txt
+$ hdfs dfs -put ~/Desktop/sample.txt /testing
+$ hdfs dfs -ls -R /
+
+hadoop jar ~/Hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar grep /testing/sample.txt /output 'is[.]*'
