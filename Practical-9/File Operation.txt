@@ -1,0 +1,50 @@
+Create Database & Table  , Alter , Insert, Read, Load , View ,Drop
+
+OPEN TERMINAL -> gedit student_details.txt
+
+Type the Details:
+
+    10001,Aazim,99,MCA
+    10002,Antony,98,MBA
+    10003,Akash,35,MCA
+    10004,Manoj,45,MBA
+    10005,Prem,89,ME
+
+Save the file
+
+
+hive> SHOW DATABASES;
+
+hive> CREATE DATABASE IF NOT EXISTS Student_Details;
+
+hive> SHOW DATABASES;
+
+hive> USE Student_Details;
+
+hive> CREATE TABLE IF NOT EXISTS Student(Stud_id int, Stud_Name String, Stud_Mark int, Stud_Dept String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' STORED AS TEXTFILE ;
+
+hive> SHOW TABLES;
+
+hive> DESCRIBE  Student;
+
+hive> ALTER TABLE Student RENAME TO Stud;
+
+hive> SHOW DATABASES;
+
+hive> LOAD DATA LOCAL INPATH '/home/mca/student_details.txt' OVERWRITE INTO TABLE Stud;
+
+hive> SELECT * FROM Stud;
+
+hive> SELECT * FROM Stud WHERE stud_mark<50;
+
+hive> CREATE VIEW PASS AS SELECT * FROM Stud WHERE stud_mark<50;
+
+hive> SELECT * FROM PASS;
+
+hive> DROP TABLE Stud;
+
+hive> SHOW TABLES;
+
+hive> DROP DATABASE Student_Details CASCADE;
+
+hive> SHOW DATABASES;
