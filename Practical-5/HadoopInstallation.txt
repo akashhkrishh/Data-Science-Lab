@@ -1,1 +1,93 @@
+$ sudo apt update -y
+$ sudo apt install openjdk-8-jdk -y
+$ sudo apt install openssh-server openssh-client -y
+$ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+$ chmod 0600 ~/.ssh/authorized_keys
+$ ssh localhost
+
+$ sudo wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.3/hadoop-2.7.3.tar.gz
+$ tar -xvf hadoop-2.7.3.tar.gz
+$ sudo mkdir /home/mca/Hadoop
+$ chmod 775 -R ~/Hadoop
+$ sudo mv ~/hadoop-2.7.3 /home/mca/Hadoop
+
+<----  Edit .bashrc File ---->
+
+$ sudo nano ~/.bashrc
+
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export HADOOP_HOME=/home/mca/Hadoop
+    export HADOOP_INSTALL=$HADOOP_HOME
+    export PATH=$PATH:$HADOOP_HOME/bin
+    export PATH=$PATH:$HADOOP_HOME/sbin
+    export HADOOP_MAPRED_HOME=$HADOOP_HOME
+    export HADOOP_COMMON_HOME=$HADOOP_HOME
+    export HADOOP_HDFS_HOME=$HADOOP_HOME
+    export YARN_HOME=$HADOOP_HOME
+    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+    export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+
+$ source ~/.bashrc
+
+<----  Edit hadoop-env.sh File ---->
+
+$ sudo nano $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+$ sudo nano $HADOOP_HOME/etc/hadoop/core-site.xml
+
+    <property>
+            <name>hadoop.tmp.dir</name>
+            <value>/home/mca/tmpdata</value>
+            <description>A base for other temporary directories.</description>
+    </property>
+    <property>
+            <name>fs.default.name</name>
+            <value>hdfs://localhost:54310</value>
+            <description>The name of the default file system></description>
+    </property>
+
+$ sudo mv $HADOOP_HOME/etc/hadoop/mapred-site.xml.template $HADOOP_HOME/etc/hadoop/mapred-site.xml
+
+<----  Edit mapred-site.xml File ---->
+
+$ sudo nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
+
+    <property>
+             <name>mapred.job.tracker</name>
+             <value>localhost:54311</value>
+    </property>
+
+<----  Edit hdfs-site.xml File ---->
+
+$ sudo nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+
+    <property>
+             <name>dfs.replication</name>
+             <value>1</value>
+    </property>
+    <property>
+            <name>dfs.namenode.name.dir</name>
+            <value>/home/mca/dfsdata/namenode</value>
+    </property>
+    <property>
+            <name>dfs.datanode.name.dir</name>
+            <value>/home/mca/dfsdata/namenode</value>
+    </property>
+
+<------------------------------After Installation------------------------------>
+
+In Browser : http://localhost:50070
+
+$ hdfs namenode -format
+$ start-all.sh
+$ jps
+
+
+
+
+
+
 
